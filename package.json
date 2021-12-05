@@ -6,7 +6,7 @@
     "author": "suckitfa <254202042@qq.com>",
     "license": "MIT",
     "scripts": {
-        "build": "webpack --config webpack.prod.js",
+        "build": "rm -rf dist && webpack --config webpack.prod.js",
         "dev": "webpack-dev-server --open"
     },
     "devDependencies": {
@@ -14,6 +14,7 @@
         "@babel/preset-env": "^7.16.4",
         "@babel/preset-react": "^7.16.0",
         "babel-loader": "^8.2.3",
+        "clean-webpack-plugin": "^4.0.0",
         "css-loader": "^6.5.1",
         "css-minimizer-webpack-plugin": "^3.2.0",
         "cssnano": "^5.0.12",

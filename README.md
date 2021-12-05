@@ -282,3 +282,30 @@ yarn add mini-css-extract-plugin -D
 ![image-20211205130853664](/Users/bobtang/Desktop/webpack-demo/public/img/image-20211205130853664.png)
 
 ![image-20211205131901110](/Users/bobtang/Library/Application Support/typora-user-images/image-20211205131901110.png)
+
+
+
+### 自动清除构建产物
+
+打包新的产物自动清理
+
+```sh
+rm -rf dist
+```
+
+插件
+
+`clean-webpack-plugin`
+
+### css前缀处理
+
+> caniuse.com
+
+![image-20211205134614713](./public/img/image-20211205134614713.png)
+
+
+
+```sh
+arn add postcss-loader autoprefixer -D
+```
+

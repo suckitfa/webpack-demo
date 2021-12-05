@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+    // const CleanWebpackPlugin = require('clean-webpack-plugin');
 const getAbsolutePath = function(filePath) {
     return path.resolve(__dirname, filePath);
 }
@@ -34,7 +35,11 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'less-loader'
+                    'less-loader',
+                    {
+                        loader: 'post-loader',
+
+                    }
                 ]
             },
             {
@@ -105,7 +110,8 @@ module.exports = {
                 minifyJS: true,
                 removeComments: false
             }
-        })
+        }),
+        // new CleanWebpackPlugin()
     ],
     devServer: {
         static: {
