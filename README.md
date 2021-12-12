@@ -306,6 +306,126 @@ rm -rf dist
 
 
 ```sh
-arn add postcss-loader autoprefixer -D
+yarn add postcss-loader autoprefixer -D
 ```
+
+### 处理移动端css转rem
+
+```sh
+// 处理移动端布局
+yarn add lib-flexible -S
+yarn add px2rem-loader -D
+```
+
+### 静态资源内联
+
+代码层面
+
+- 页面框架的初始化脚本
+- 上报相关打点
+- css内联避免页面闪动
+
+### 请求层面:减少http请求次数
+
+- 小图盘或者字体 url-loader
+
+
+
+![image-20211212104503067](./public/img/image-20211212104503067.png)
+
+
+
+css内联
+
+# 多页面打包方案
+
+- MPA: seo友好
+
+- SPA：
+
+#### 方案一:
+
+动态获取entry和设置html-webpack-plugin
+
+![image-20211212110014737](/Users/bobtang/Desktop/webpack-demo/public/img/image-20211212110014737.png)
+
+```js
+const setMPA = () => {
+    const entry = {};
+    const htmlWebpackPlugins = [];
+    // 所有页面的入口index.js
+    const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'))
+    Object.keys(entryFiles).map((index) => {
+        const entryFile = entryFiles[index]
+        const match = entryFile.match(/src\/(.*)\/index\.js/ig)
+        const pageName = match && match[1];
+        entry[pageName] = entryFile;
+        htmlWebpackPlugins.push(
+            new HtmlWebpackPlugin({
+                template: `src/${pageName}/index.html`,
+                filename: `${pageName}.html`,
+                chunks: [pageName],
+                inject: true,
+                minify: {
+                    html5: true,
+                    collapseWhitespace: true,
+                    preserveLineBreaks: false,
+                    minifyCSS: true,
+                    minifyJS: true,
+                    removeComments: false
+                }
+            }),
+        )
+    })
+    return {
+        entry,
+        htmlWebpackPlugins
+    }
+}
+const { entry, htmlWebpackPlugins } = setMPA();
+```
+
+
+
+### 基础库的分离
+
+![image-20211212144332480](/Users/bobtang/Desktop/webpack-demo/public/img/image-20211212144332480.png)
+
+### SplitChunksPlugin进行公共脚本的分离???
+
+引用了同一个脚本
+
+- async
+- initial
+- all (推荐)所有引入的库进行分离
+
+![image-20211212145338433](/Users/bobtang/Desktop/webpack-demo/public/img/image-20211212145338433.png)
+
+
+
+### sourcemap
+
+将
+
+
+
+### TreeShaking
+
+
+
+必须是ES6语法，不支持CJS。
+
+- 只能做顶层语句出翔
+- import的模块只能是常量
+- import binding是immutable的
+
+ **webpack中的`mode`**
+
+- production默认开启treeshaking
+
+
+
+### scopeHoisting的使用
+
+
 

@@ -1,25 +1,56 @@
+const glob = require('glob')
 const path = require('path');
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-    // const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
+const setMPA = () => {
+    const entry = {};
+    const htmlWebpackPlugins = [];
+    // 所有页面的入口index.js
+    const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'))
+    Object.keys(entryFiles).map((index) => {
+        const entryFile = entryFiles[index]
+        const match = entryFile.match(/src\/(.*)\/index\.js/)
+        const pageName = match && match[1];
+        entry[pageName] = entryFile;
+        htmlWebpackPlugins.push(
+            new HtmlWebpackPlugin({
+                template: `src/${pageName}/index.html`,
+                filename: `${pageName}.html`,
+                chunks: [pageName],
+                inject: true,
+                minify: {
+                    html5: true,
+                    collapseWhitespace: true,
+                    preserveLineBreaks: false,
+                    minifyCSS: true,
+                    minifyJS: true,
+                    removeComments: false
+                }
+            }),
+        )
+    })
+    return {
+        entry,
+        htmlWebpackPlugins
+    }
+}
+const { entry, htmlWebpackPlugins } = setMPA();
 const getAbsolutePath = function(filePath) {
     return path.resolve(__dirname, filePath);
 }
 
 module.exports = {
-    entry: {
-        app: './src/index.js',
-        search: './src/search.js'
-    },
+    entry,
     output: {
         filename: "[name]_[chunkhash:8].js",
         // 必须是绝对路径
         path: getAbsolutePath('dist'),
 
     },
-    mode: "development",
+    mode: "none",
     module: {
         rules: [{
                 test: /.js$/,
@@ -30,15 +61,30 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
-            }, {
+            },
+            {
                 test: /.less$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     'less-loader',
                     {
-                        loader: 'post-loader',
-
+                        loader: 'px2rem-loader',
+                        options: {
+                            remUnit: 75,
+                            remPrecision: 8
+                        }
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: () => {
+                                    require('autoprefixer')({
+                                        browsers: ['last 2 version', '>1%', 'ios 7']
+                                    })
+                                }
+                            }
+                        }
                     }
                 ]
             },
@@ -52,15 +98,6 @@ module.exports = {
                     }
                 }]
             },
-            // {
-            //     test: /.(png|gif|jpeg|jpg)$/,
-            //     use: [{
-            //         loader: 'url-loader',
-            //         options: {
-            //             limit: 10240
-            //         }
-            //     }]
-            // },
             {
                 test: /.(woff|woff2|eot|ott|tff)$/,
                 use: [{
@@ -82,42 +119,26 @@ module.exports = {
         new CssMinimizerWebpackPlugin({
             test: /\.css$/ig,
         }),
-        // html 两个页面 search index
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src/search.html'),
-            filename: 'search.html',
-            chunks: ['search'],
-            inject: true,
-            minify: {
-                html5: true,
-                collapseWhitespace: true,
-                preserveLineBreaks: false,
-                minifyCSS: true,
-                minifyJS: true,
-                removeComments: false
-            }
-        }),
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src/index.html'),
-            filename: 'index.html',
-            chunks: ['index'],
-            inject: true,
-            minify: {
-                html5: true,
-                collapseWhitespace: true,
-                preserveLineBreaks: false,
-                minifyCSS: true,
-                minifyJS: true,
-                removeComments: false
-            }
-        }),
-        // new CleanWebpackPlugin()
-    ],
+        new HtmlWebpackExternalsPlugin({
+            externals: [{
+                    module: 'react',
+                    entry: 'https://now8.gtimg.com/now/lib/16.2.0/react.min.js',
+                    global: 'React'
+                },
+                {
+                    module: 'react-dom',
+                    entry: 'https://now8.gtimg.com/now/lib/16.2.0/react-dom.min.js',
+                    global: 'ReactDOM'
+                }
+            ]
+        })
+    ].concat(htmlWebpackPlugins),
     devServer: {
         static: {
             directory: getAbsolutePath('dist')
         },
         port: 9999,
         hot: true,
-    }
+    },
+    devtool: 'eval'
 }

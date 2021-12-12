@@ -8,29 +8,20 @@
  */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./src/helloworld.js":
-/*!***************************!*\
-  !*** ./src/helloworld.js ***!
-  \***************************/
+/******/ 	var __webpack_modules__ = ([
+/* 0 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"helloworld\": () => (/* binding */ helloworld)\n/* harmony export */ });\nvar helloworld = function helloworld() {\n  return 'Hello webpack';\n};\n\n//# sourceURL=webpack://webpack-demo/./src/helloworld.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _helloworld__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);\n\ndocument.write((0,_helloworld__WEBPACK_IMPORTED_MODULE_0__.helloworld)());\n\n//# sourceURL=webpack://webpack-demo/./src/index/index.js?");
 
 /***/ }),
-
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/* 1 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _helloworld__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helloworld */ \"./src/helloworld.js\");\n\ndocument.write((0,_helloworld__WEBPACK_IMPORTED_MODULE_0__.helloworld)());\n\n//# sourceURL=webpack://webpack-demo/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"helloworld\": () => (/* binding */ helloworld)\n/* harmony export */ });\nvar helloworld = function helloworld() {\n  return 'Hello webpack';\n};\n\n//# sourceURL=webpack://webpack-demo/./src/index/helloworld.js?");
 
 /***/ })
-
-/******/ 	});
+/******/ 	]);
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
@@ -90,7 +81,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _hel
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__(0);
 /******/ 	
 /******/ })()
 ;
