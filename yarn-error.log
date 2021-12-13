@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add split-chunks-plugin -D
+  /usr/local/bin/node /usr/local/bin/yarn add eslint esling-plugin-import esling-plugin-react eslint-plugin-jsx-a11y -D
 
 PATH: 
   /usr/local/mongodb/bin:/usr/local/mongodb/bin:/Applications/anaconda3/bin:/Applications/anaconda3/condabin:/Users/baijiawei/Library/Application Support/GoodSync:/opt/local/bin:/opt/local/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/Users/bobtang/.cargo/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:/Users/bobtang/Documents/spiderlib/chromedriver:/Users/bobtang/Library/Android/sdk/platform-tools:/Users/bobtang/Library/Android/sdk:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/mysql/bin:/Users/bobtang/documents/spiderlib/chromedriver:/usr/local/mongodb/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.npmmirror.com/split-chunks-plugin: Not found
+  Error: https://registry.npmmirror.com/esling-plugin-import: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66988:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140662:22)
       at Request.emit (events.js:400:28)
@@ -65,6 +65,7 @@ npm manifest:
           "webpack-dev-server": "^4.6.0"
       },
       "dependencies": {
+          "@babel/plugin-syntax-dynamic-import": "^7.8.3",
           "lib-flexible": "^0.3.2",
           "react": "^17.0.2",
           "react-dom": "^17.0.2"
@@ -500,7 +501,7 @@ Lockfile:
   
   "@babel/plugin-syntax-dynamic-import@^7.8.3":
     version "7.8.3"
-    resolved "https://registry.npmmirror.com/@babel/plugin-syntax-dynamic-import/download/@babel/plugin-syntax-dynamic-import-7.8.3.tgz"
+    resolved "https://registry.npmmirror.com/@babel/plugin-syntax-dynamic-import/download/@babel/plugin-syntax-dynamic-import-7.8.3.tgz#62bf98b2da3cd21d626154fc96ee5b3cb68eacb3"
     integrity sha1-Yr+Ysto80h1iYVT8lu5bPLaOrLM=
     dependencies:
       "@babel/helper-plugin-utils" "^7.8.0"

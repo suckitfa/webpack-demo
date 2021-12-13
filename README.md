@@ -427,5 +427,134 @@ const { entry, htmlWebpackPlugins } = setMPA();
 
 ### scopeHoisting的使用
 
+原理：将所有模块代码按照引用顺序放在一个函数的作用域里，然后适当的重命名
+
+一些变量防止变量名冲突。
+
+对比：通过scope hoisting减少声明代码和内存开销
+
+```js
+// es6的代码
+// mode production默认开启
+```
 
 
+
+> 构建后存在大量的闭包代码,大量函数闭包裹代码
+- import被转为 _webpack_require
+
+![image-20211213135946384](./public/img/image-20211213135946384.png)
+
+![image-20211213140151139](./public/img/image-20211213140151139.png)
+
+
+
+### 代码分割
+
+chunks 语块 有效的加快`首屏渲染速度`
+
+- 懒加载脚本
+
+```js
+// cjs: require.ensure
+// es6动态import(babel转换)
+// @babel/plugin-syntax-dynamic-import
+```
+
+
+
+- 抽离相同的代码到共享块
+
+
+
+### ESLint和webpack加强代码规范
+
+代码规范
+
+- eslint-config-airbnb (base) 含有react
+- eslint-config-alloy
+
+**建议**
+
+1. 基于eslint:recommend配置改进
+
+2. 帮助发现代码错误的规则，全部开启
+
+3. 保持代码风格一直，而不是限制开发体验
+
+```js
+for-direction error 
+```
+
+**集成CI/CD和webpack集成**
+
+![image-20211213143519099](./public/img/image-20211213143519099.png)
+
+![image-20211213143627304](./public/img/image-20211213143627304.png)
+
+![image-20211213143720528](./public/img/image-20211213143720528.png)
+
+制定解析器
+
+```js
+yarn add eslint eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y -D
+```
+
+
+
+```js
+babel-eslint
+```
+
+
+
+### webpack打包组件库
+
+rollup更适合打包组件库
+
+案例
+
+大整数加法库的打包
+
+- 需要打包压缩版本和非压缩版本
+- 支持AMD和CJS和ESM模块引入
+
+
+
+![image-20211213145423050](./public/img/image-20211213145423050.png)
+
+```js
+const TerserPlugin = require('terser-webpack-plugin');
+module.exports = {
+    // 不开启压缩
+    mode: 'none',
+    entry: {
+        'large-number': './src/index.js',
+        'large-number.min': './src/index.js'
+    },
+    output: {
+        filename: '[name].js',
+        library: 'largeNumber',
+        libraryTarget: 'umd',
+        libraryExport: 'default',
+    },
+  	// 在这里开启压缩，压缩对应的文件
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({
+            include: /\.min\.js$/,
+        })]
+    }
+}
+```
+
+###### 发布到npm
+
+1. 创建npm用户账号`用户名` `邮箱` `密码`
+2. 在本地
+
+```sh
+npm adduser
+# 设置对应用户的信息
+npm publish # 发布包
+```
