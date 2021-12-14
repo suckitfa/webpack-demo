@@ -558,3 +558,56 @@ npm adduser
 # 设置对应用户的信息
 npm publish # 发布包
 ```
+
+
+
+
+
+### SSR
+
+- 所有的模板资源存储在服务端
+
+- 内网机器拉取数据更快
+
+- 一个HTML返回所有的数据（首屏数据）
+
+优点
+
+1. 减少白屏时间
+2. 对于SEO友好 （利于爬虫分析）
+
+服务端
+
+- `react-dom/server`的renderToString方法将React字符串渲染成字符串
+- 服务端返回对应的模板
+
+客户端
+
+	- 打包出服务端组件
+
+
+
+#### SSR错误
+
+`window is not defined错误`
+
+`documnet is not defined`错误
+
+```js
+if(typeof window === 'undefined') {
+  global.window = {};
+}
+```
+
+![image-20211214132525500](./public/img/image-20211214132525500.png)
+
+`css in js`?
+
+占位符的思路解决样式不显示的问题？
+
+- 首屏数据
+
+```html
+<!--INTIAL_DATA_PLACEHOLDER-->
+```
+
