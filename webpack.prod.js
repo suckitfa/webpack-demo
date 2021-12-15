@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const setMPA = () => {
     const entry = {};
     const htmlWebpackPlugins = [];
@@ -50,7 +51,7 @@ module.exports = {
         path: getAbsolutePath('dist'),
 
     },
-    mode: "none",
+    mode: "production",
     module: {
         rules: [{
                 test: /.js$/,
@@ -131,7 +132,19 @@ module.exports = {
                     global: 'ReactDOM'
                 }
             ]
-        })
+        }),
+        new FriendlyErrorsWebpackPlugin(),
+        function() {
+            // 数据上报
+            this.compilers.hooks.done.tap('done', (stats) => {
+                if (stats.compilation.errors &&
+                    stats.compilation.errors.length &&
+                    process.argv.indexOf('--watch') == -1) {
+                    console.log('build error');
+                    process.exit(1);
+                }
+            });
+        }
     ].concat(htmlWebpackPlugins),
     devServer: {
         static: {

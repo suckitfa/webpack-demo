@@ -1,7 +1,4 @@
-// import React from "react";
-// import ReactDOM from 'react-dom'
-// import './search.css'
-// import logo from './images/Logo.png'
+// commojs不支持
 const React  = require('react');
 const ReactDOM  = rquire('react-dom');
 require('./search.css');

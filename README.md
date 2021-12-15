@@ -611,3 +611,70 @@ if(typeof window === 'undefined') {
 <!--INTIAL_DATA_PLACEHOLDER-->
 ```
 
+
+
+### 构建的日志信息输出的优化
+
+stats： webpack中的控制信息的输出
+
+![image-20211215090244424](./public/img/image-20211215090244424.png)
+
+```friendly-error-webpack-plugin`` 
+
+- sucess:构建成功
+- warning: 构建警告日志
+- error错误
+
+
+
+### 构建异常和中断处理
+
+![image-20211215091656349](./public/img/image-20211215091656349.png)
+
+![image-20211215091817323](./public/img/image-20211215091817323.png)
+
+### 打包的文件的配置
+
+![image-20211215101954266](/Users/bobtang/Library/Application Support/typora-user-images/image-20211215101954266.png)
+
+### 项目的目录结构
+
+> https://docs.qq.com/mind/DUG5ObGhleFJUZ3Bs
+
+![image-20211215102016949](/Users/bobtang/Library/Application Support/typora-user-images/image-20211215102016949.png)
+
+> 常见loader
+>
+> https://webpack.docschina.org/loaders/
+
+
+
+## 测试
+
+### 冒烟测试 smoke testing
+
+正式测试之前的预测试；
+
+目的：暴露导致软件需要重新发布的基本功能失效的严重问题。
+
+
+
+**关注**
+
+1. 构建是否成功
+
+2. 每次构建完成build目录是否有内容输出
+
+- 是否有js, css等静态资源文件
+- 是否有HTML文件
+
+![image-20211215111052903](./public/img/image-20211215111052903.png)
+
+
+
+mocha
+
+一款测试框架
+
+### 单元测试
+

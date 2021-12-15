@@ -60,5 +60,6 @@ module.exports = {
         },
         port: 9999,
         hot: true,
+        stats: 'error-only'
     }
 }
