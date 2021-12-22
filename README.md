@@ -711,3 +711,79 @@ language
 >  github action ???
 >
 > travis ci
+
+
+
+### git commit的规范 (angular js的提交git日志规范)
+
+> husky 
+
+- 加快CR流程
+- 根据git commit生成changelog
+
+
+
+![image-20211222233500871](./public/img/image-20211222233500871.png)
+
+```sh
+<type>(<scope>): <subject>
+```
+
+- `feat`
+- `fix`: 修复bug
+- `docs`: 仅仅修改了文档
+- `style`:空格，格式缩进等,不改变逻辑
+- `refactor`:
+- `perf`
+- `test`
+- `chore`:改变构建流程，或者增加依赖库，工具
+- `revert`
+
+
+
+![image-20211222234015749](./public/img/image-20211222234015749.png)
+
+### 版本规范
+
+![image-20211222234205897](./public/img/image-20211222234205897.png)
+
+
+
+
+
+![image-20211222234309808](./public/img/image-20211222234309808.png)
+
+![image-20211222234420710](./public/img/image-20211222234420710.png)
+
+
+
+![image-20211222234538994](./public/img/image-20211222234538994.png)
+
+
+
+
+
+### webpack的优化构建速度和打包体积
+
+1. **内部的stats** 
+
+> 缺点：颗粒度太大，看不出问题所在
+
+```js
+"build:stats":"webpack --env production --json > stats.json"
+```
+
+2. 速度分析
+
+```sh
+speed-measure-webpack-plugin
+```
+
+2. 体积分析
+
+```sh
+webpack-bundle-anayzer
+```
+
+
+

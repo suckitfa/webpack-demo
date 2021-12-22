@@ -8,7 +8,10 @@
     "scripts": {
         "build": "rm -rf dist && webpack --config webpack.prod.js",
         "dev": "webpack-dev-server --open",
-        "build:ssr": "rm -rf dist && webpack --config webpack.ssr.js"
+        "build:ssr": "rm -rf dist && webpack --config webpack.ssr.js",
+        "commitmsg": "validate-commit-msg",
+        "changelog": "conve",
+        "build:stats": "webpack --config webpack.prod.js  --json > stats.json"
     },
     "devDependencies": {
         "@babel/core": "^7.16.0",
@@ -33,6 +36,7 @@
         "glob": "^7.2.0",
         "html-webpack-externals-plugin": "^3.8.0",
         "html-webpack-plugin": "^5.5.0",
+        "husky": "^7.0.4",
         "istanbul": "^0.4.5",
         "less": "^4.1.2",
         "less-loader": "^10.2.0",
